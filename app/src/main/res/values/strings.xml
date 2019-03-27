@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MAMN01_Individuell_Uppgift</string>
+    <string name="compassButton">Compass</string>
+    <string name="accButton">Accelorometer</string>
 </resources>
