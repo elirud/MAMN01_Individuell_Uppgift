@@ -1,6 +1,8 @@
 package com.example.mamn01_individuell_uppgift;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,10 +15,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openCompass(View View) {
-        // Do something in response to button
+        Intent intent = new Intent(this, CompassActivity.class);
+        startActivity(intent);
     }
 
     public void openAccelorometer(View View) {
-        // Do something in response to button
+        Intent intent = new Intent(this, AccelorometerActivity.class);
+        startActivity(intent);
     }
 }
