@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openAccelorometer(View View) {
-        Intent intent = new Intent(this, AccelorometerActivity.class);
+    public void openAccelerometer(View View) {
+        Intent intent = new Intent(this, AccelerometerActivity.class);
         startActivity(intent);
     }
 }
