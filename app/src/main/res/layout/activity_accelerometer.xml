@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="107dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="54dp" />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="214dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="54dp" />
 
@@ -30,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="321dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="54dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
