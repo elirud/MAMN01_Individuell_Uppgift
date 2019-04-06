@@ -22,6 +22,7 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
     TextView txt_x;
     TextView txt_y;
     TextView txt_z;
+    static final float ALPHA = 0.25f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,8 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+            //System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+            mLastAccelerometer = lowPass(event.values.clone(), mLastAccelerometer);
             mLastAccelerometerSet = true;
         }
 
@@ -60,6 +62,14 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
 
 
 
+    }
+
+    protected float[] lowPass( float[] input, float[] output ) {
+        if ( output == null ) return input;
+        for ( int i=0; i<input.length; i++ ) {
+            output[i] = output[i] + ALPHA * (input[i] - output[i]);
+        }
+        return output;
     }
 
     public void noSensorsAlert(){

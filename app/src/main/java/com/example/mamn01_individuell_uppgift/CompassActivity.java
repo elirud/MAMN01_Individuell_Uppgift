@@ -3,14 +3,17 @@ package com.example.mamn01_individuell_uppgift;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.Vibrator;
 
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -26,11 +29,15 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private float[] mLastMagnetometer = new float[3];
     private boolean mLastAccelerometerSet = false;
     private boolean mLastMagnetometerSet = false;
+    static final float ALPHA = 0.25f;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         compass_img = (ImageView) findViewById(R.id.img_compass);
@@ -100,10 +107,12 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         }
 
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+            //System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
+            mLastAccelerometer = lowPass(event.values.clone(), mLastAccelerometer);
             mLastAccelerometerSet = true;
         } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
+            //System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
+            mLastMagnetometer = lowPass(event.values.clone(), mLastMagnetometer);
             mLastMagnetometerSet = true;
         }
         if (mLastAccelerometerSet && mLastMagnetometerSet) {
@@ -117,8 +126,10 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         String where = "NW";
 
-        if (mAzimuth >= 350 || mAzimuth <= 10)
+        if (mAzimuth >= 350 || mAzimuth <= 10) {
             where = "N";
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
         if (mAzimuth < 350 && mAzimuth > 280)
             where = "NW";
         if (mAzimuth <= 280 && mAzimuth > 260)
@@ -137,6 +148,14 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         txt_compass.setText(mAzimuth + "° " + where);
 
+    }
+
+    protected float[] lowPass( float[] input, float[] output ) {
+        if ( output == null ) return input;
+        for ( int i=0; i<input.length; i++ ) {
+            output[i] = output[i] + ALPHA * (input[i] - output[i]);
+        }
+        return output;
     }
 
     @Override
