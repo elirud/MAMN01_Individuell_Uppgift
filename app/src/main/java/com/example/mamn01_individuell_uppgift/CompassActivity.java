@@ -11,6 +11,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.VibrationEffect;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 import android.os.Vibrator;
+import android.widget.Toast;
 
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -36,6 +38,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private boolean mLastMagnetometerSet = false;
     static final float ALPHA = 0.25f;
     private Vibrator vibrator;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +136,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         if (mAzimuth >= 350 || mAzimuth <= 10) {
             where = "N";
-            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         }
         if (mAzimuth < 350 && mAzimuth > 280)
             where = "NW";
@@ -153,6 +155,9 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         txt_compass.setText(mAzimuth + "° " + where);
 
+        if(Math.abs(mAzimuth - vibrateValue) <= 5) {
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
     }
 
     protected float[] lowPass( float[] input, float[] output ) {
@@ -168,7 +173,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     }
 
-/*    public void openDialog(View view) {
+    public void openDialog(View view) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View dialogView = layoutInflater.inflate(R.layout.compass_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -179,8 +184,13 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 vibrateValue = Integer.parseInt(InputDialogEditText.getText().toString()) % 360;
+                toast = Toast.makeText(getApplicationContext(), "Will vibrate around " + vibrateValue + "°", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             }
         });
 
-    }*/
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

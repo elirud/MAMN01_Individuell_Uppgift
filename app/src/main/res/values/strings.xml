@@ -3,4 +3,6 @@
     <string name="compassButton">Compass</string>
     <string name="accButton">Accelorometer</string>
     <string name="degreeButton">Set vibration value</string>
+    <string name="setVibrationText">Set vibration value</string>
+    <string name="SetVibrationHint">Enter direction in degrees</string>
 </resources>
