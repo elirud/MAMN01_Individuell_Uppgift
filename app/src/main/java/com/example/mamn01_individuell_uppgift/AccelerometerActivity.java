@@ -22,6 +22,7 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
     TextView txt_x;
     TextView txt_y;
     TextView txt_z;
+    TextView direction;
     static final float ALPHA = 0.25f;
 
     @Override
@@ -34,6 +35,7 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
         txt_x = (TextView) findViewById(R.id.txt_x);
         txt_y = (TextView) findViewById(R.id.txt_y);
         txt_z = (TextView) findViewById(R.id.txt_z);
+        direction = (TextView) findViewById(R.id.accDirectionText);
     }
 
     private void start() {
@@ -58,6 +60,17 @@ public class AccelerometerActivity extends AppCompatActivity implements SensorEv
             txt_x.setText("X: " + mLastAccelerometer[0]);
             txt_y.setText("Y: " + mLastAccelerometer[1]);
             txt_z.setText("Z: " + mLastAccelerometer[2]);
+
+            if(mLastAccelerometer[0] > 1) {
+                direction.setText("Tilted left");
+            }
+            else if(mLastAccelerometer[0] < -1) {
+                direction.setText("Tilted right");
+            }
+            else {
+                direction.setText("");
+            }
+
         }
 
 
