@@ -11,7 +11,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.VibrationEffect;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.os.Vibrator;
 
@@ -20,6 +24,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     ImageView compass_img;
     TextView txt_compass;
     int mAzimuth;
+    int vibrateValue;
     private SensorManager mSensorManager;
     private Sensor mRotationV, mAccelerometer, mMagnetometer;
     boolean haveSensor = false, haveSensor2 = false;
@@ -162,4 +167,20 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
+/*    public void openDialog(View view) {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View dialogView = layoutInflater.inflate(R.layout.compass_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(dialogView);
+
+        final EditText InputDialogEditText = (EditText) dialogView.findViewById(R.id.degreeValueInput);
+        alertDialogBuilder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                vibrateValue = Integer.parseInt(InputDialogEditText.getText().toString()) % 360;
+            }
+        });
+
+    }*/
 }
