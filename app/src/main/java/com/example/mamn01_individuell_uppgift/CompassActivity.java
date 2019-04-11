@@ -85,14 +85,9 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     public void stop() {
-        if(haveSensor && haveSensor2){
             mSensorManager.unregisterListener(this,mAccelerometer);
             mSensorManager.unregisterListener(this,mMagnetometer);
-        }
-        else{
-            if(haveSensor)
-                mSensorManager.unregisterListener(this,mRotationV);
-        }
+            mSensorManager.unregisterListener(this,mRotationV);
     }
 
     @Override
