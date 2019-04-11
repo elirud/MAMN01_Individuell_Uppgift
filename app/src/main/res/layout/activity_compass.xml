@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".CompassActivity">
 
     <TextView
@@ -16,7 +17,7 @@
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="40sp"
-        android:textStyle="bold"
+        app:fontFamily="monospace"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -39,6 +40,8 @@
         android:clickable="true"
         android:onClick="openDialog"
         app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +53,9 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="@string/degreeButton"
+            android:textColor="#000"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            app:fontFamily="monospace" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

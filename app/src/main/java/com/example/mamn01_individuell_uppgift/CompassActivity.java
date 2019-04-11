@@ -150,7 +150,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         txt_compass.setText(mAzimuth + "° " + where);
 
-        if(Math.abs(mAzimuth - vibrateValue) <= 5) {
+        if(Math.abs(mAzimuth - vibrateValue) <= 1) {
             vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         }
     }
